@@ -1,0 +1,67 @@
+{
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "search": "بحث",
+    "loading": "جاري التحميل...",
+    "noData": "لا توجد بيانات",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "resetPassword": "إعادة تعيين كلمة المرور",
+    "verifyEmail": "تأكيد البريد الإلكتروني"
+  },
+  "navigation": {
+    "dashboard": "لوحة التحكم",
+    "appointments": "المواعيد",
+    "branches": "الفروع",
+    "orders": "الطلبات",
+    "staff": "الموظفين",
+    "medicalProfiles": "الملفات الطبية",
+    "tickets": "التذاكر",
+    "notifications": "الإشعارات"
+  },
+  "dashboard": {
+    "welcome": "مرحباً بك في بوابة MedYour",
+    "totalAppointments": "إجمالي المواعيد",
+    "totalOrders": "إجمالي الطلبات",
+    "totalBranches": "إجمالي الفروع",
+    "totalStaff": "إجمالي الموظفين",
+    "pendingTickets": "التذاكر المعلقة"
+  },
+  "appointments": {
+    "title": "المواعيد",
+    "newAppointment": "موعد جديد",
+    "patient": "المريض",
+    "doctor": "الطبيب",
+    "date": "التاريخ",
+    "time": "الوقت",
+    "status": "الحالة"
+  },
+  "orders": {
+    "title": "الطلبات",
+    "orderId": "رقم الطلب",
+    "customer": "العميل",
+    "total": "الإجمالي",
+    "status": "الحالة",
+    "items": "العناصر"
+  },
+  "tickets": {
+    "title": "تذاكر الدعم",
+    "subject": "الموضوع",
+    "priority": "الأولوية",
+    "status": "الحالة",
+    "description": "الوصف"
+  }
+}

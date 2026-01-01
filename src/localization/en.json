@@ -1,0 +1,67 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "verifyEmail": "Verify Email"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "appointments": "Appointments",
+    "branches": "Branches",
+    "orders": "Orders",
+    "staff": "Staff",
+    "medicalProfiles": "Medical Profiles",
+    "tickets": "Tickets",
+    "notifications": "Notifications"
+  },
+  "dashboard": {
+    "welcome": "Welcome to MedYour Portal",
+    "totalAppointments": "Total Appointments",
+    "totalOrders": "Total Orders",
+    "totalBranches": "Total Branches",
+    "totalStaff": "Total Staff",
+    "pendingTickets": "Pending Tickets"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "newAppointment": "New Appointment",
+    "patient": "Patient",
+    "doctor": "Doctor",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status"
+  },
+  "orders": {
+    "title": "Orders",
+    "orderId": "Order ID",
+    "customer": "Customer",
+    "total": "Total",
+    "status": "Status",
+    "items": "Items"
+  },
+  "tickets": {
+    "title": "Support Tickets",
+    "subject": "Subject",
+    "priority": "Priority",
+    "status": "Status",
+    "description": "Description"
+  }
+}
