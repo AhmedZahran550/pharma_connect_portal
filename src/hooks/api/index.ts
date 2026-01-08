@@ -1,5 +1,4 @@
-// API hooks index - export all API-related hooks from this file
-export * from "../useApiResource";
+// API hooks index - export generic CRUD hooks
 export * from "./useGetList";
 export * from "./useGetOne";
 export * from "./useCreate";

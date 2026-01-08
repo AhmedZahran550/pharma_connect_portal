@@ -70,13 +70,27 @@ const clearAuth = () => {
   }
 };
 
-// Request interceptor for adding auth token
+// Request interceptor for adding auth token and Accept-Language header
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const user = getStoredUser();
     if (user?.access_token) {
       config.headers.Authorization = `Bearer ${user.access_token}`;
     }
+
+    // Add Accept-Language header for localized error messages
+    // Check localStorage first, then fallback to navigator language
+    let language = "en";
+    if (typeof window !== "undefined") {
+      const storedLang = localStorage.getItem("i18nextLng");
+      if (storedLang) {
+        language = storedLang.split("-")[0]; // 'en-US' -> 'en'
+      } else if (navigator.language) {
+        language = navigator.language.split("-")[0];
+      }
+    }
+    config.headers["Accept-Language"] = language;
+
     return config;
   },
   (error) => {

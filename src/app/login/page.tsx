@@ -28,22 +28,6 @@ import { loginSchema, LoginFormData } from "@/schemas/loginSchema";
 import { useLogin } from "@/hooks/useAuth";
 import ClientWrapper from "../ClientWrapper";
 
-// Demo users for quick login
-const DEMO_USERS = [
-  {
-    email: "doctor@pharma.com",
-    password: "doctor123",
-    label: "Doctor Demo",
-    role: "doctor" as const,
-  },
-  {
-    email: "admin@pharma.com",
-    password: "admin123",
-    label: "Admin Demo",
-    role: "admin" as const,
-  },
-];
-
 // Inner component that uses hooks requiring QueryClient
 function LoginForm() {
   const router = useRouter();
@@ -194,39 +178,6 @@ function LoginForm() {
             )}
           </Button>
         </Box>
-
-        {/* Demo Login Section */}
-        <Divider sx={{ my: 3 }}>
-          <Typography variant="body2" color="text.secondary">
-            Quick Demo
-          </Typography>
-        </Divider>
-
-        <Stack direction="row" spacing={2}>
-          {DEMO_USERS.map((user) => (
-            <Button
-              key={user.email}
-              fullWidth
-              variant="outlined"
-              onClick={() => handleDemoLogin(user.email, user.password)}
-              disabled={loginMutation.isPending}
-              sx={{
-                py: 1,
-                borderColor: user.role === "doctor" ? "#667eea" : "#764ba2",
-                color: user.role === "doctor" ? "#667eea" : "#764ba2",
-                "&:hover": {
-                  borderColor: user.role === "doctor" ? "#5a6fd6" : "#6a4190",
-                  backgroundColor:
-                    user.role === "doctor"
-                      ? "rgba(102,126,234,0.08)"
-                      : "rgba(118,75,162,0.08)",
-                },
-              }}
-            >
-              {user.label}
-            </Button>
-          ))}
-        </Stack>
       </CardContent>
     </Card>
   );
