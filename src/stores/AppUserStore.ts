@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: "admin" | "doctor" | "pharmacist" | "staff";
-  avatar?: string;
-}
+import { User } from "@/types";
 
 interface AppUserState {
   user: User | null;
@@ -15,6 +8,7 @@ interface AppUserState {
   token: string | null;
   setUser: (user: User) => void;
   setToken: (token: string) => void;
+  clearUser: () => void;
   logout: () => void;
 }
 
@@ -26,6 +20,7 @@ export const useAppUserStore = create<AppUserState>()(
       token: null,
       setUser: (user) => set({ user, isAuthenticated: true }),
       setToken: (token) => set({ token }),
+      clearUser: () => set({ user: null, isAuthenticated: false, token: null }),
       logout: () => set({ user: null, isAuthenticated: false, token: null }),
     }),
     {
