@@ -7,6 +7,8 @@ import { useAppUserStore } from "@/stores/AppUserStore";
 import ClientWrapper from "../ClientWrapper";
 import DoctorSidebar from "@/components/doctor/Sidebar";
 
+import { UserRole } from "@/types";
+
 interface DoctorLayoutProps {
   children: ReactNode;
 }
@@ -23,13 +25,15 @@ export default function DoctorLayout({ children }: DoctorLayoutProps) {
     }
 
     // Redirect if not a doctor
-    if (user?.role !== "doctor") {
+    const isDoctor = user?.roles?.includes(UserRole.PROVIDER_DOCTOR);
+    if (!isDoctor) {
       router.push("/login");
     }
   }, [isAuthenticated, user, router]);
 
   // Don't render until auth is verified
-  if (!isAuthenticated || user?.role !== "doctor") {
+  const isDoctor = user?.roles?.includes(UserRole.PROVIDER_DOCTOR);
+  if (!isAuthenticated || !isDoctor) {
     return null;
   }
 

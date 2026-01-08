@@ -8,15 +8,18 @@ import { useAppUserStore } from "@/stores/AppUserStore";
 /**
  * Hook for user login
  */
+// Hook for user login
 export function useLogin() {
   const setUser = useAppUserStore((state) => state.setUser);
 
   return useMutation<AuthResponse, Error, LoginCredentials>({
     mutationFn: async (credentials: LoginCredentials) => {
-      const response = await apiClient.post<AuthResponse>(
-        "/auth/login",
-        credentials
-      );
+      const response = await apiClient.post<AuthResponse>("/auth/token", {
+        grant_type: "password",
+        client_id: "portal",
+        email: credentials.email,
+        password: credentials.password,
+      });
       return response.data;
     },
     onSuccess: (data) => {
@@ -46,15 +49,21 @@ export function useLogin() {
 /**
  * Hook for user logout
  */
+/**
+ * Hook for user logout
+ */
 export function useLogout() {
   const clearUser = useAppUserStore((state) => state.clearUser);
 
   return useMutation<void, Error>({
     mutationFn: async () => {
       try {
-        await apiClient.post("/auth/logout");
-      } catch {
-        // Ignore errors on logout
+        await apiClient.post<{ success: boolean }>("/auth/logout");
+      } catch (error) {
+        // We ignore errors here because we want to clear local state regardless
+        // of whether the server successfully processed the logout.
+        // Common errors might be 401 if token already expired.
+        console.warn("Logout API call failed", error);
       }
     },
     onSuccess: () => {

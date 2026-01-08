@@ -27,6 +27,7 @@ import { useAppForm } from "@/hooks/useAppForm";
 import { loginSchema, LoginFormData } from "@/schemas/loginSchema";
 import { useLogin } from "@/hooks/useAuth";
 import ClientWrapper from "../ClientWrapper";
+import { UserRole } from "@/types";
 
 // Inner component that uses hooks requiring QueryClient
 function LoginForm() {
@@ -52,9 +53,25 @@ function LoginForm() {
       const result = await loginMutation.mutateAsync(data);
 
       // Redirect based on user role
-      if (result.user.role === "doctor") {
+      const roles = result.user.roles || [];
+      if (roles.includes(UserRole.PROVIDER_DOCTOR)) {
         router.push("/doctor");
-      } else if (result.user.role === "admin") {
+      } else if (
+        roles.some((role: string) =>
+          [
+            UserRole.PROVIDER_ADMIN,
+            UserRole.ADMIN,
+            UserRole.SUPER_ADMIN,
+            UserRole.SYSTEM_ADMIN,
+            UserRole.SYSTEM_USER,
+          ].includes(role as UserRole)
+        )
+      ) {
+        router.push("/admin");
+      } else if (result.user.role === UserRole.PROVIDER_DOCTOR) {
+        router.push("/doctor");
+      } else if (result.user.role === UserRole.ADMIN) {
+        // keeping 'admin' string if legacy role was lowercase 'admin'
         router.push("/admin");
       } else {
         router.push("/home");

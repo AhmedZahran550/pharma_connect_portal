@@ -1,18 +1,75 @@
 // Common type definitions for the application
 
+// User Roles Enum matching AUTH_FLOW.md
+export enum UserRole {
+  PROVIDER_USER = "PROVIDER_USER",
+  PROVIDER_DOCTOR = "PROVIDER_DOCTOR",
+  PROVIDER_ADMIN = "PROVIDER_ADMIN",
+  PROVIDER_PHARMACIST = "PROVIDER_PHARMACIST",
+  ADMIN = "ADMIN",
+  SUPER_ADMIN = "SUPER_ADMIN",
+  SYSTEM_ADMIN = "SYSTEM_ADMIN",
+  SYSTEM_USER = "SYSTEM_USER",
+
+  // Backward compatibility
+  DOCTOR = "doctor",
+  PHARMACIST = "pharmacist",
+  STAFF = "staff",
+}
+
 export interface User {
   id: string;
   email: string;
-  name: string;
-  role: UserRole;
-  avatar?: string;
+  firstName: string;
+  lastName: string;
+  name?: string; // For backward compatibility/display
+  roles: string[]; // Replaces single role
+  role?: string; // For backward compatibility
+  branch?: {
+    id: string;
+    name: string;
+    provider: { id: string };
+  };
+  availableForConsultation?: boolean;
+  photoUrl?: string; // Replaces avatar
+  avatar?: string; // For backward compatibility
   phone?: string;
   specialty?: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
-export type UserRole = "admin" | "doctor" | "pharmacist" | "staff";
+// ... existing interfaces ...
+
+// ============================================
+// Auth Types
+// ============================================
+
+export interface LoginPayload {
+  grant_type: "password" | "refresh_token";
+  client_id: "portal" | "mobile_app";
+  email?: string;
+  password?: string;
+  refresh_token?: string;
+  device_token?: string;
+  client_secret?: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  access_token: string;
+  refresh_token: string;
+  expireAt: string;
+  user: User;
+}
+
+export interface StoredUser {
+  user: User;
+  access_token: string;
+  refresh_token?: string;
+}
 
 export interface Branch {
   id: string;
@@ -213,25 +270,4 @@ export interface ApiError {
   errorCode?: string;
   statusCode: number;
   errors?: Record<string, string[]>;
-}
-
-// ============================================
-// Auth Types
-// ============================================
-
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  user: User;
-  access_token: string;
-  refresh_token?: string;
-}
-
-export interface StoredUser {
-  user: User;
-  access_token: string;
-  refresh_token?: string;
 }
