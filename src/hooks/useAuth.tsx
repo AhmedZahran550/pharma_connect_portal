@@ -43,6 +43,9 @@ export function useLogin() {
       // Update Zustand store
       setUser(data.user);
     },
+    onError: (error) => {
+      console.error("Login failed", error);
+    },
   });
 }
 

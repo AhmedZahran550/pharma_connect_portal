@@ -73,18 +73,10 @@ function LoginForm() {
       } else if (result.user.role === UserRole.ADMIN) {
         // keeping 'admin' string if legacy role was lowercase 'admin'
         router.push("/admin");
-      } else {
-        router.push("/home");
       }
     } catch {
       // Error is handled by the mutation
     }
-  };
-
-  const handleDemoLogin = (email: string, password: string) => {
-    setValue("email", email);
-    setValue("password", password);
-    onSubmit({ email, password });
   };
 
   return (

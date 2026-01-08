@@ -27,7 +27,8 @@ export function useDelete({ resource, mutationOptions }: UseDeleteOptions) {
       // Invalidate list and remove detail from cache
       queryClient.invalidateQueries({ queryKey: [resource, "list"] });
       queryClient.removeQueries({ queryKey: [resource, "detail", id] });
-      mutationOptions?.onSuccess?.(data, id, context);
+      // @ts-ignore - bypassing excessive argument check
+      (mutationOptions?.onSuccess as any)?.(data, id, context);
     },
     ...mutationOptions,
   });

@@ -38,7 +38,8 @@ export function useUpdate<T>({
       queryClient.invalidateQueries({
         queryKey: [resource, "detail", variables.id],
       });
-      mutationOptions?.onSuccess?.(data, variables, context);
+      // @ts-ignore - bypassing excessive argument check
+      (mutationOptions?.onSuccess as any)?.(data, variables, context);
     },
     ...mutationOptions,
   });

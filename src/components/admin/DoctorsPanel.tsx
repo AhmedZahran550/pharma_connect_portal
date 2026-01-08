@@ -30,42 +30,46 @@ const MOCK_DOCTORS: (User & {
   {
     id: "1",
     name: "Dr. Ahmed Kamal",
+    firstName: "Ahmed",
+    lastName: "Kamal",
     email: "ahmed.kamal@pharma.com",
     role: "doctor",
+    roles: ["PROVIDER_DOCTOR"],
     specialty: "Cardiology",
     status: "online",
-    createdAt: "2024-01-15",
-    updatedAt: "2024-01-15",
   },
   {
     id: "2",
     name: "Dr. Mona Saeed",
+    firstName: "Mona",
+    lastName: "Saeed",
     email: "mona.saeed@pharma.com",
     role: "doctor",
+    roles: ["PROVIDER_DOCTOR"],
     specialty: "Dermatology",
     status: "online",
-    createdAt: "2024-02-20",
-    updatedAt: "2024-02-20",
   },
   {
     id: "3",
     name: "Dr. Khaled Omar",
+    firstName: "Khaled",
+    lastName: "Omar",
     email: "khaled.omar@pharma.com",
     role: "doctor",
+    roles: ["PROVIDER_DOCTOR"],
     specialty: "Pediatrics",
     status: "offline",
-    createdAt: "2024-03-10",
-    updatedAt: "2024-03-10",
   },
   {
     id: "4",
     name: "Dr. Fatma Ibrahim",
+    firstName: "Fatma",
+    lastName: "Ibrahim",
     email: "fatma.ibrahim@pharma.com",
     role: "doctor",
+    roles: ["PROVIDER_DOCTOR"],
     specialty: "General Practice",
     status: "online",
-    createdAt: "2024-04-05",
-    updatedAt: "2024-04-05",
   },
 ];
 
@@ -73,12 +77,14 @@ export default function DoctorsPanel() {
   const [searchQuery, setSearchQuery] = useState("");
   const doctors = MOCK_DOCTORS;
 
-  const filteredDoctors = doctors.filter(
-    (doctor) =>
-      doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  const filteredDoctors = doctors.filter((doctor) => {
+    const fullName = doctor.name || `${doctor.firstName} ${doctor.lastName}`;
+    return (
+      fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       doctor.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       doctor.specialty.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    );
+  });
 
   return (
     <Box>
@@ -134,48 +140,52 @@ export default function DoctorsPanel() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredDoctors.map((doctor) => (
-              <TableRow key={doctor.id} hover>
-                <TableCell>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <Avatar sx={{ bgcolor: "primary.main" }}>
-                      {getInitials(doctor.name)}
-                    </Avatar>
-                    <Typography variant="body2" fontWeight={500}>
-                      {doctor.name}
-                    </Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>{doctor.specialty}</TableCell>
-                <TableCell>{doctor.email}</TableCell>
-                <TableCell>
-                  <Chip
-                    icon={
-                      <Circle
-                        sx={{
-                          fontSize: 10,
-                          color:
-                            doctor.status === "online"
-                              ? "success.main"
-                              : "grey.500",
-                        }}
-                      />
-                    }
-                    label={doctor.status}
-                    size="small"
-                    variant="outlined"
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <IconButton size="small" color="primary">
-                    <Edit fontSize="small" />
-                  </IconButton>
-                  <IconButton size="small" color="error">
-                    <Delete fontSize="small" />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
+            {filteredDoctors.map((doctor) => {
+              const fullName =
+                doctor.name || `${doctor.firstName} ${doctor.lastName}`;
+              return (
+                <TableRow key={doctor.id} hover>
+                  <TableCell>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                      <Avatar sx={{ bgcolor: "primary.main" }}>
+                        {getInitials(fullName)}
+                      </Avatar>
+                      <Typography variant="body2" fontWeight={500}>
+                        {fullName}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>{doctor.specialty}</TableCell>
+                  <TableCell>{doctor.email}</TableCell>
+                  <TableCell>
+                    <Chip
+                      icon={
+                        <Circle
+                          sx={{
+                            fontSize: 10,
+                            color:
+                              doctor.status === "online"
+                                ? "success.main"
+                                : "grey.500",
+                          }}
+                        />
+                      }
+                      label={doctor.status}
+                      size="small"
+                      variant="outlined"
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    <IconButton size="small" color="primary">
+                      <Edit fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" color="error">
+                      <Delete fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
